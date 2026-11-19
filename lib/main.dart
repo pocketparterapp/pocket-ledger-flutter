@@ -66,8 +66,14 @@ class Store extends ChangeNotifier {
     }
   }
 
-  void save() { p.setString('d', jsonEncode({'txs': txs, 'cats': cats, 'budgets': budgets})); notifyListeners(); }
-  void start({required bool sample}) { guest = sample; _defaults(sample); authed = true; locked = false; p.setBool('auth', true); p.setBool('guest', sample); save(); }
+  void save() { p.setString('d', jsonEncode({'txs': txs, 'cats': cats, 'budgets': budgets, 'pin': pin})); notifyListeners(); }
+  void start({required bool sample}) {
+    // Preserve existing user data on sign-in; sample data is only for a fresh guest session.
+    if (cats.isEmpty) _defaults(sample);
+    else if (sample && txs.isEmpty) _defaults(true);
+    guest = sample; authed = true; locked = false;
+    p.setBool('auth', true); p.setBool('guest', sample); save();
+  }
   void logout() { authed = false; locked = false; p.setBool('auth', false); notifyListeners(); }
   void addTx(Map t) { txs.add(t); save(); }
   void setPin(String? v) { pin = v; v == null ? p.remove('pin') : p.setString('pin', v); notifyListeners(); }
