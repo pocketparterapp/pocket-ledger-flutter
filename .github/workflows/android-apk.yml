@@ -42,6 +42,26 @@ jobs:
           if [ ! -d android ]; then
             flutter create . --platforms=android --org com.pocketpartner --project-name pocket_ledger
           fi
+      - name: Set Android compile SDK to 35
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          candidates = [Path('android/app/build.gradle.kts'), Path('android/app/build.gradle')]
+          target = next((p for p in candidates if p.exists()), None)
+          if target is None:
+              raise SystemExit('Android app Gradle file was not generated')
+          source = target.read_text()
+          if target.suffix == '.kts':
+              updated, count = re.subn(r'compileSdk\\s*=\\s*flutter\\.compileSdkVersion', 'compileSdk = 35', source)
+          else:
+              updated, count = re.subn(r'compileSdk(?:Version)?\\s*=?\\s*flutter\\.compileSdkVersion', 'compileSdkVersion 35', source)
+          if count == 0:
+              raise SystemExit(f'Could not find Flutter compileSdk setting in {target}')
+          target.write_text(updated)
+          print(f'Updated {target} to compileSdk 35')
+          PY
       - name: Install Flutter dependencies
         run: flutter pub get
       - name: Analyze Dart source (report only)
