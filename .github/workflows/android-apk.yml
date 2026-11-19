@@ -54,9 +54,9 @@ jobs:
               raise SystemExit('Android app Gradle file was not generated')
           source = target.read_text()
           if target.suffix == '.kts':
-              updated, count = re.subn(r'compileSdk\\s*=\\s*flutter\\.compileSdkVersion', 'compileSdk = 35', source)
+              updated, count = re.subn(r'compileSdk\s*=\s*flutter\.compileSdkVersion', 'compileSdk = 35', source)
           else:
-              updated, count = re.subn(r'compileSdk(?:Version)?\\s*=?\\s*flutter\\.compileSdkVersion', 'compileSdkVersion 35', source)
+              updated, count = re.subn(r'compileSdk(?:Version)?\s*=?\s*flutter\.compileSdkVersion', 'compileSdkVersion 35', source)
           if count == 0:
               raise SystemExit(f'Could not find Flutter compileSdk setting in {target}')
           target.write_text(updated)
