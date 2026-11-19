@@ -99,7 +99,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         title: 'Pocket Ledger',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(useMaterial3: true, colorSchemeSeed: green, scaffoldBackgroundColor: canvas, cardTheme: CardTheme(color: Colors.white, elevation: 2, shadowColor: Colors.black12, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)))),
+        theme: ThemeData(useMaterial3: true, colorSchemeSeed: green, scaffoldBackgroundColor: canvas, cardTheme: CardThemeData(color: Colors.white, elevation: 2, shadowColor: Colors.black12, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)))),
         home: ListenableBuilder(
           listenable: S,
           builder: (_, __) => AnimatedSwitcher(
