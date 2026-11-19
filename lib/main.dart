@@ -194,7 +194,7 @@ class _LedgerHomeState extends State<LedgerHome> {
       const Text('Calendar', style: TextStyle(color: ink, fontSize: 27, fontWeight: FontWeight.w900)), const SizedBox(height: 5), const Text('A quick view of your monthly activity.', style: TextStyle(color: muted, fontSize: 12)), const SizedBox(height: 20),
       Container(padding: const EdgeInsets.all(17), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(22)), child: Column(children: [
         Text(_month(now.month) + ' ' + now.year.toString(), style: const TextStyle(color: ink, fontWeight: FontWeight.w800, fontSize: 16)), const SizedBox(height: 17),
-        const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [for (final d in ['M','T','W','T','F','S','S']) SizedBox(width: 30, child: Center(child: Text(d, style: TextStyle(color: muted, fontWeight: FontWeight.w800, fontSize: 11))))]),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [for (final d in ['M','T','W','T','F','S','S']) SizedBox(width: 30, child: Center(child: Text(d, style: const TextStyle(color: muted, fontWeight: FontWeight.w800, fontSize: 11))))]),
         const SizedBox(height: 9),
         GridView.builder(shrinkWrap: true, physics: const NeverScrollableScrollPhysics(), itemCount: offset + count, gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7, mainAxisSpacing: 5, crossAxisSpacing: 5), itemBuilder: (_, i) {
           final day = i - offset + 1;
